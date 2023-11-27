@@ -30,9 +30,9 @@ export default function SearchLeftSideINN(props) {
 
     function validateINN(value) {
         const INN = value.replace(/\s/g, "").split("")
-        const coef = [2, 4, 10, 3, 5, 9, 4, 6, 8]
+        const validateNumder = (INN.slice(0, 9).map((x, id) => parseInt(x) * coef[id]).reduce((sum, a) => sum + a, 0) % 11).toString()
 
-        if (INN.length == 10 && INN.slice(0, 9).map((x, id) => parseInt(x) * coef[id]).reduce((sum, a) => sum + a, 0) % 11 == INN.slice(-1)) {
+        if (INN.length == 10 && validateNumder[validateNumder.length - 1] == INN.slice(-1)) {
             inputInn.current.classList.remove("invalid")
             innSpan.current.classList.remove("invalid")
             innErrorText.current.classList.add("hidden")
